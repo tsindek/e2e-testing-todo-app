@@ -1,9 +1,6 @@
 console.log("Hello Todo App!");
 
 let todos = [];
-const deleteTodosButton = document.querySelector("#delete-todos");
-const addTodoBtn = document.querySelector("#add-todo");
-const todoListEl = document.querySelector("#todo-list");
 
 function readTodosFromLocalStorage() {
   const todosFromStorage = localStorage.getItem("todos");
@@ -26,7 +23,7 @@ function addNewTodo() {
   }
 
   // duplicate check
-  if (isDuplicate(newTodoText)) {
+  if (isDuplicate(newTodoText, todos)) {
     return;
   }
 
@@ -41,7 +38,6 @@ function addNewTodo() {
 
   newTodoEl.value = "";
 }
-addTodoBtn.addEventListener("click", addNewTodo);
 
 function renderTodos() {
   const todoListEl = document.querySelector("#todo-list");
@@ -75,7 +71,7 @@ function renderTodos() {
   filterTodos();
 }
 
-function isDuplicate(todo) {
+export function isDuplicate(todo, todos) {
   todo = todo.toLowerCase();
 
   for (let i = 0; i < todos.length; i++) {
@@ -87,7 +83,6 @@ function isDuplicate(todo) {
   return false;
 }
 
-todoListEl.addEventListener("change", toggleTodoState);
 function toggleTodoState(event) {
   const checkbox = event.target;
   if (checkbox.checked === true) {
@@ -101,8 +96,6 @@ function toggleTodoState(event) {
   saveTodosToLocalStorage();
 }
 
-const todoFilterEl = document.querySelector("#todo-filter");
-todoFilterEl.addEventListener("change", filterTodos);
 function filterTodos() {
   const filterValue = getFilterValue();
 
@@ -129,9 +122,20 @@ function deleteDoneTodos() {
   saveTodosToLocalStorage();
   renderTodos();
 }
-deleteTodosButton.addEventListener("click", deleteDoneTodos);
 
 export function initTodoApp() {
+  const deleteTodosButton = document.querySelector("#delete-todos");
+  deleteTodosButton.addEventListener("click", deleteDoneTodos);
+
+  const addTodoBtn = document.querySelector("#add-todo");
+  addTodoBtn.addEventListener("click", addNewTodo);
+
+  const todoListEl = document.querySelector("#todo-list");
+  todoListEl.addEventListener("change", toggleTodoState);
+
+  const todoFilterEl = document.querySelector("#todo-filter");
+  todoFilterEl.addEventListener("change", filterTodos);
+
   readTodosFromLocalStorage();
   renderTodos();
 }
