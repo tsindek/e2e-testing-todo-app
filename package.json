@@ -6,13 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "serve ./src",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.0",
     "cypress": "^9.6.1",
+    "jest": "^28.1.0",
     "serve": "^13.0.2"
   }
 }
