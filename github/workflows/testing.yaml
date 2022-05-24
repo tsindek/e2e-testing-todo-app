@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -24,11 +24,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      # Run the command to install node deps
       - run: npm ci
       - run: npm run test:ci
-      # Run the command to start your dev server followed by the & sign
       - run: npm run serve &
-      # Run the command for the e2e tests
       - run: npm run e2e:ci
-      # Run the command for the unit tests
